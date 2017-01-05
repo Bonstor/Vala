@@ -1,13 +1,14 @@
-import config
-import telebot
-import time
 import random
+import time
+
+import telebot
+
+import config
 
 bot = telebot.TeleBot(config.token)
 input_file = open("some.txt", "r")
 answer_list = input_file.readlines()
 input_file.close()
-petyh_list = []
 
 
 def new_answer(message):
@@ -20,10 +21,10 @@ def start(message):
                                      'Я сумрочное творение 17й кафедры призванное ставить петухов на место\n'
                                      'Вот простое описание моего незамысловатого функционала:\n'
                                      'Эту команду могут использовать все,'
-                                     ' добавлаяя свои остроумные осткарбления петушар\n'
+                                     ' добавлаяя свои остроумные оскарбления петушар\n'
                                      '/добавь Сообщение для петуха\n'
                                      'Этим сообщением вы можете добавить петуха в список петушения\n'
-                                     '/петух Ник петуха\n'
+                                     '/петух Ник петуха(можно посмотреть в описание профиля. К примеру у Тимофея это TimTimKat)\n'
                                      'Чтобы удалить всех из листа петушения\n'
                                      '/отпусти\n'
                                      'Что бы связаться с больным ублюдком, написавшим это '
@@ -33,13 +34,11 @@ def start(message):
                                      'Юлечке Лавдиной за помощь в разработке приложения'
                                      )
 
-
+petyh_list=[]
 
 @bot.message_handler(content_types=["text"])
 def repeat_all_messages(message):
     # test
-    #bot.send_message(254247271, message.from_user.first_name)
-    #bot.send_message(254247271, '********************\n')
     print(message.from_user)
     print(message.text)
     print('***********************\n')
@@ -78,7 +77,7 @@ def repeat_all_messages(message):
 
     if message.text.startswith('/отпусти ') and (message.from_user.id == 234672324):
         bot.send_message(message.chat.id, "Все свободны. Ну кроме главного петушары конечно")
-        config.init()
+        petyh_list.clear()
         return 0
 
     if message.text.startswith('/отпусти '):
